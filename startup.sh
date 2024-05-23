@@ -23,7 +23,7 @@ nvm install $NODE_VERSION
 # Clone vm_deployment_script repo
 # git requires $HOME and it's not set during the startup script.
 export HOME=/root
-sudo apt install -yq git-all
+apt install -yq git-all
 rm -rf /opt/app/vm_deployment_script
 git clone "https://github.com/rayonstudios/vm_deployment_script.git" /opt/app/vm_deployment_script
 cd /opt/app/vm_deployment_script
