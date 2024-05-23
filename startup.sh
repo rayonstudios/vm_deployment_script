@@ -44,6 +44,7 @@ npm install -g pm2@5.3.1
 # build
 npm run build
 
+pm2 stop vm_deployment_script
 pm2 start ./dist/server.js --name vm_deployment_script
 
 supervisorctl reread
