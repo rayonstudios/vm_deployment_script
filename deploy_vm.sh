@@ -4,7 +4,7 @@
 set -e
 
 # Variables
-CLONE_DIR="./physikomatics_be_${$1}"
+CLONE_DIR="./physikomatics_be_$1"
 
 # Remove existing repo if present
 rm -rf $CLONE_DIR
