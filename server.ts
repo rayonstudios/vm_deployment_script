@@ -14,7 +14,7 @@ app.get("/deploy", (req, res) => {
   const env = req.query.env || "dev";
   const scriptPath = path.join(__dirname, "../deploy_vm.sh");
 
-  const command = spawn(`bash ${scriptPath} ${env} ${process.env.REPO_URL}`);
+  const command = spawn(`${scriptPath} ${env} ${process.env.REPO_URL}`);
   command.stdout.on("data", (data) => {
     res.write(data);
   });
