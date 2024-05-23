@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.ts",
   "scripts": {
+    "build": "tsc",
     "start": "tsx ./server.ts"
   },
   "keywords": [],

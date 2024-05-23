@@ -35,22 +35,17 @@ npm install
 useradd -m -d /home/nodeapp nodeapp
 chown -R nodeapp:nodeapp /opt/app
 
-# Configure supervisor to run the node app.
-cat >/etc/supervisor/conf.d/node-app.conf << EOF
-[program:nodeapp]
-directory=/opt/app/vm_deployment_script
-command=npm start
-autostart=true
-autorestart=true
-user=nodeapp
-environment=HOME="/home/nodeapp",USER="nodeapp",NODE_ENV="production"
-stdout_logfile=syslog
-stderr_logfile=syslog
-EOF
+# Install pm2
+npm install -g pm2@5.3.1
+
+# build
+npm run build
+
+pm2 start ./dist/server.js --name vm_deployment_script
 
 supervisorctl reread
 supervisorctl update
 
 # run the apps for the first time
-curl http://localhost:3001/deploy
-curl http://localhost:3001/deploy?env=production
+# curl http://localhost:3001/deploy
+# curl http://localhost:3001/deploy?env=production

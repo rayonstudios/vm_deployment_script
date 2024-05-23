@@ -22,10 +22,7 @@ npm install
 # Build the application
 npm run build
 
-# Install pm2
-npm install -g pm2@5.3.1
-
 # Run the application
 port=3000
 if [[$1 == "production" ]]; then port=80; fi
-NODE_ENV="$1" PORT=$port pm2 start ./dist/server.js
+NODE_ENV="$1" PORT=$port pm2 start ./dist/server.js --name "physikomatics_be_$1"
