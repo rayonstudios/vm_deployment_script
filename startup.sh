@@ -1,6 +1,6 @@
 set -v
 
-REPO_URL="https://github.com/rayonstudios/vm_deployment_script.git"
+REPO_URL="https://github.com/org/repo"
 NODE_VERSION="20.13.1"
 
 # Install logging monitor. The monitor will automatically pick up logs sent to
@@ -20,15 +20,18 @@ source ~/.bashrc
 # Install nodejs
 nvm install $NODE_VERSION
 
-# Get the application source code from the Google Cloud Repository.
+# Clone vm_deployment_script repo
 # git requires $HOME and it's not set during the startup script.
 export HOME=/root
 sudo apt install -yq git-all
 rm -rf /opt/app/vm_deployment_script
-git clone $REPO_URL /opt/app/vm_deployment_script
+git clone "https://github.com/rayonstudios/vm_deployment_script.git" /opt/app/vm_deployment_script
+cd /opt/app/vm_deployment_script
+
+# Create .env with REPO_URL secret
+echo "REPO_URL=$REPO_URL" > ./.env
 
 # Install app dependencies
-cd /opt/app/vm_deployment_script
 npm install
 
 # Create a nodeapp user. The application will run as this user.
@@ -47,5 +50,5 @@ supervisorctl reread
 supervisorctl update
 
 # run the apps for the first time
-# curl http://localhost:3001/deploy
+curl http://localhost:3001/deploy
 # curl http://localhost:3001/deploy?env=production

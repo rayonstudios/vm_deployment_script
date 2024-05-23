@@ -4,14 +4,13 @@
 set -e
 
 # Variables
-REPO_URL="https://github.com/org/repo"
 CLONE_DIR="./physikomatics_be_${$1}"
 
 # Remove existing repo if present
 rm -rf $CLONE_DIR
 
 # Clone the repository
-git clone $REPO_URL $CLONE_DIR
+git clone "$2" $CLONE_DIR
 
 # Change to the repository directory
 cd $CLONE_DIR
