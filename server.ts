@@ -1,5 +1,5 @@
 import express from "express";
-import { spawn, execSync } from "child_process";
+import { execSync } from "child_process";
 import path from "path";
 import "dotenv/config";
 

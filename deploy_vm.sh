@@ -29,4 +29,4 @@ port=3000
 if [[$1 == "production" ]]; then port=80; fi
 
 # Start/Restart the application
-NODE_ENV="$1" PORT=$port pm2 start -f ./dist/server.js --name "physikomatics_be_$1"
+PORT=$port npm run start:$1

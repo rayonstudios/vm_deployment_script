@@ -2,7 +2,6 @@ set -v
 
 REPO_URL="https://github.com/org/repo"
 NODE_VERSION="20.13.1"
-USER="thetrendshakers"
 
 # Install logging monitor. The monitor will automatically pick up logs sent to
 # syslog.
@@ -23,26 +22,26 @@ git clone "https://github.com/rayonstudios/vm_deployment_script.git" /opt/app/vm
 cd /opt/app/vm_deployment_script
 
 # Install nvm
-sudo -u $USER curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-sudo -u $USER source ~/.bashrc
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+source ~/.bashrc
 
 # Install nodejs
-sudo -u $USER nvm install $NODE_VERSION
+nvm install $NODE_VERSION
 
 # Create .env with REPO_URL secret
 echo "REPO_URL=$REPO_URL" > ./.env
 
 # Install app dependencies
-sudo -u $USER npm install
+npm install
 
 # Install pm2
-sudo -u $USER npm install -g pm2@5.3.1
+npm install -g pm2@5.3.1
 
 # build
-sudo -u $USER npm run build
+npm run build
 
-sudo -u $USER pm2 start -f ./dist/server.js --name vm_deployment_script
+pm2 start -f ./dist/server.js --name vm_deployment_script
 
 # run the apps for the first time
 curl http://localhost:3001/deploy
-# curl http://localhost:3001/deploy?env=production
+# curl http://localhost:3001/deploy?env=prod
