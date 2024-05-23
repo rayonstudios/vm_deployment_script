@@ -1,5 +1,5 @@
 import express from "express";
-import { spawn } from "child_process";
+import { spawn, execSync } from "child_process";
 import path from "path";
 import "dotenv/config";
 
@@ -14,19 +14,24 @@ app.get("/deploy", (req, res) => {
   const env = req.query.env || "dev";
   const scriptPath = path.join(__dirname, "../deploy_vm.sh");
 
-  const command = spawn(`${scriptPath} ${env} ${process.env.REPO_URL}`);
-  command.stdout.on("data", (data) => {
-    res.write(data);
+  execSync(`bash ${scriptPath} ${env} ${process.env.REPO_URL}`, {
+    stdio: "inherit",
   });
-  command.stderr.on("data", (data) => {
-    res.write(data);
-  });
-  command.on("error", (err) => {
-    res.end(err.message);
-  });
-  command.on("exit", (code) => {
-    res.end(`Finished with code: ${code}!`);
-  });
+  res.send("Finished!");
+
+  // const command = spawn(`bash ${scriptPath} ${env} ${process.env.REPO_URL}`);
+  // command.stdout.on("data", (data) => {
+  //   res.write(data);
+  // });
+  // command.stderr.on("data", (data) => {
+  //   res.write(data);
+  // });
+  // command.on("error", (err) => {
+  //   res.end(err.message);
+  // });
+  // command.on("exit", (code) => {
+  //   res.end(`Finished with code: ${code}!`);
+  // });
 });
 
 app.listen(port, () => {
