@@ -12,7 +12,7 @@ app.get("/status", (req, res) => {
 
 app.get("/deploy", (req, res) => {
   const env = req.query.env || "dev";
-  const scriptPath = path.join(__dirname, "deploy_vm.sh");
+  const scriptPath = path.join(__dirname, "../deploy_vm.sh");
 
   execSync(`bash ${scriptPath} ${env} ${process.env.REPO_URL}`, {
     stdio: "inherit",
