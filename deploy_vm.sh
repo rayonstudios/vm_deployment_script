@@ -3,6 +3,9 @@
 # Exit immediately if a command exits with a non-zero status
 set -e
 
+# move to home path
+cd ~
+
 # Variables
 CLONE_DIR="./physikomatics_be_$1"
 
