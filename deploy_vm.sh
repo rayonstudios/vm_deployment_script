@@ -30,7 +30,7 @@ npm run build
 
 # set the application
 port=3000
-if [["$1" == "prod" ]]; then port=80; fi
+if [ "$1" == "prod" ]; then port=80; fi
 
 # Start/Restart the application
 PORT=$port npm run start:$1
